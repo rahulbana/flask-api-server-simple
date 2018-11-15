@@ -1,8 +1,13 @@
-import six
+from dotenv import load_dotenv
+load_dotenv()
+
 from flask import Flask, jsonify, request
-
+import os
 app = Flask(__name__, static_url_path="")
-
+PORT = os.getenv("PORT")
+HOST = os.getenv("HOST")
+print(HOST)
+print(PORT)
 tasks = [
     {
         'id': 1,
@@ -17,6 +22,7 @@ tasks = [
         'done': False
     }
 ]
+
 @app.route('/todo/api/v1.0/tasks', methods=['GET'])
 def get_tasks():
     return jsonify({'tasks': tasks})
@@ -30,5 +36,6 @@ def get_tasksById(task_id):
 
 if __name__ == '__main__':
     #app.run(debug=True)
-    app.run(host='0.0.0.0', port=5001, debug=False)
+    app.run(host=HOST, port=PORT, debug=False)
+    #app.run(host='0.0.0.0', port=5001, debug=False)
 	
